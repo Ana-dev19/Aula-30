@@ -1,1 +1,25 @@
+package Exercicios;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class Lista<S> {
+    public static void main(String[] args) {
+
+        ArrayList<Integer> lista = new ArrayList<Integer>();
+        lista.add(1);
+        lista.add(5);
+        lista.add(5);
+        lista.add(6);
+        lista.add(7);
+        lista.add(8);
+        lista.add(8);
+        lista.add(8);
+
+        Iterator<Integer> interate = lista.iterator();
+
+        while (interate.hasNext()) {
+            System.out.println(interate.next());
+        }
+        }
 
