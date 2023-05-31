@@ -1,3 +1,4 @@
+Exe3rcicio-1
 package Exercicios;
 
 import java.util.ArrayList;
@@ -22,4 +23,69 @@ public class Lista<S> {
             System.out.println(interate.next());
         }
         }
+        
+        
+        
+  Exercicio-2
+  
+  package Exercicios;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class Lista2 {
+    public static void main(String[] args) {
+        Set<Integer> conjunto = new HashSet<Integer>();
+        conjunto.add(1);
+        conjunto.add(5);
+        conjunto.add(5);
+        conjunto.add(6);
+        conjunto.add(7);
+        conjunto.add(8);
+        conjunto.add(8);
+        conjunto.add(8);
+
+        System.out.println(conjunto);
+        System.out.println("------------------------");
+    }
+}
+//Quando usamos um conjunto ele não permite elementos duplicados, e no exemplo acima, os elementos duplicados são 5 e 8, e eles foram removidos
+
+
+Exercicio-3
+
+package Exercicios;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        //HashMap para objetos e suas cores
+        HashMap<String, List<String>> objetosCores = new HashMap<>();
+
+        List<String> coresBola = new ArrayList<>();
+        coresBola.add("azul");
+        objetosCores.put("bola", coresBola);
+
+        List<String> coresBoneca = new ArrayList<>();
+        coresBoneca.add("amarela");
+        objetosCores.put("boneca", coresBoneca);
+
+        List<String> coresDado = new ArrayList<>();
+        coresDado.add("rosa");
+        objetosCores.put("dado", coresDado);
+
+        //Imprime todas as chaves e seus valores associados
+
+        for (String objeto : objetosCores.keySet()) {
+            System.out.println(objeto + " -> " + objetosCores.get(objeto));
+            System.out.println("-----------------------------------------------------");
+        }
+
+    }
+}
+
+        
 
