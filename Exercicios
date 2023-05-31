@@ -52,6 +52,9 @@ public class Lista2 {
 //Quando usamos um conjunto ele não permite elementos duplicados, e no exemplo acima, os elementos duplicados são 5 e 8, e eles foram removidos
 
 
+
+
+
 Exercicio-3
 
 package Exercicios;
