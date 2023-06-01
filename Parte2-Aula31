@@ -1,0 +1,26 @@
+Exercicio 1
+
+package Exercicio1;
+ class Item {
+     private String tipo;
+     private String nome;
+     private double quantidade;
+
+     public Item(String tipo, String nome, double quantidade) {
+         this.tipo = tipo;
+         this.nome = nome;
+         this.quantidade = quantidade;
+     }
+
+     public String getNome() {
+         return nome;
+     }
+
+     public double getQuantidade() {
+         return quantidade;
+     }
+
+     public String getTipo() {
+         return tipo;
+     }
+ }
