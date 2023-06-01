@@ -24,3 +24,289 @@ package Exercicio1;
          return tipo;
      }
  }
+ package Exercicio1;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class LIstaCompras {
+        public static void main(String[] args) {
+            List<Alimento> listaCompras = new ArrayList<>();
+            Scanner scanner = new Scanner(System.in);
+
+            boolean encerrar = false;
+            while (!encerrar) {
+                try {
+                    System.out.println("Selecione o tipo de alimento a ser incluído na lista:");
+                    System.out.println("1. Verdura");
+                    System.out.println("2. Legume");
+                    System.out.println("3. Grãos");
+                    System.out.println("4. Outros");
+                    System.out.println("0. Encerrar");
+                    int opcao = Integer.parseInt(scanner.nextLine());
+
+                    switch (opcao) {
+                        case 1:
+                            incluirVerdura(scanner, listaCompras);
+                            break;
+                        case 2:
+                            incluirLegume(scanner, listaCompras);
+                            break;
+                        case 3:
+                            incluirGraos(scanner, listaCompras);
+                            break;
+                        case 4:
+                            incluirOutros(scanner, listaCompras);
+                            break;
+                        case 0:
+                            encerrar = true;
+                            break;
+                        default:
+                            System.out.println("Opção inválida. Tente novamente.");
+                    }
+
+                    System.out.println();
+                } catch (NumberFormatException exception) {
+                    System.out.println("Entrada inválida. " + exception.getMessage());
+                    System.out.println();
+                } catch (IllegalArgumentException | UnsupportedOperationException exception) {
+                    System.out.println(exception.getMessage());
+                    System.out.println();
+                }
+            }
+
+            System.out.println("Lista de compras:");
+            for (Alimento alimento : listaCompras) {
+                System.out.println(alimento.getNome() + " - " + alimento.getQuantidade());
+            }
+
+            System.out.println();
+            System.out.println("A quantidade de alimentos do tipo verdura a ser comprada é: " + contarTipoAlimento(listaCompras, "VERDURA"));
+            System.out.println("A quantidade de alimentos do tipo legume a ser comprada é: " + contarTipoAlimento(listaCompras, "LEGUME"));
+            System.out.println("A quantidade de alimentos do tipo grãos a ser comprada é: " + contarTipoAlimento(listaCompras, "GRÃOS"));
+            System.out.println("A quantidade de alimentos do tipo outros a ser comprada é: " + contarTipoAlimento(listaCompras, "OUTROS"));
+        }
+
+        private static void incluirVerdura(Scanner scanner, List<Alimento> listaCompras) {
+            System.out.println("Informe a quantidade de verdura (em gramas):");
+            double quantidade = Double.parseDouble(scanner.nextLine());
+            if (quantidade % 1 == 0) {
+                throw new NumberFormatException("Para verdura, a quantidade deve ser informada com ponto.");
+            }
+
+            System.out.println("Informe o nome da verdura:");
+            String nome = scanner.nextLine();
+            if (nome.isEmpty()) {
+                throw new UnsupportedOperationException("Não é permitido inserir nome vazio.");
+            }
+            listaCompras.add(new Alimento(nome, quantidade, "VERDURA"));
+        }
+
+        private static void incluirLegume(Scanner scanner, List<Alimento> listaCompras) {
+            System.out.println("Informe a quantidade de legume (em unidades):");
+            int quantidade = Integer.parseInt(scanner.nextLine());
+            if (quantidade <= 0) {
+                throw new UnsupportedOperationException("Não é possível inserir número negativo ou zero.");
+            }
+
+            System.out.println("Informe o nome do legume:");
+            String nome = scanner.nextLine();
+            if (nome.isEmpty()) {
+                throw new UnsupportedOperationException("Não é permitido inserir nome vazio.");
+            }
+
+            listaCompras.add(new Alimento(nome, quantidade, "LEGUME"));
+        }
+
+        private static void incluirGraos(Scanner scanner, List<Alimento> listaCompras) {
+            System.out.println("Informe a quantidade de grãos (em gramas):");
+            double quantidade = Double.parseDouble(scanner.nextLine());
+            if (quantidade % 1 == 0) {
+                throw new NumberFormatException("Para grãos, a quantidade deve ser informada com ponto.");
+            }
+
+            System.out.println("Informe o nome do grão:");
+            String nome = scanner.nextLine();
+            if (nome.isEmpty()) {
+                throw new UnsupportedOperationException("Não é permitido inserir nome vazio.");
+            }
+
+            listaCompras.add(new Alimento(nome, quantidade, "GRÃOS"));
+        }
+
+        private static void incluirOutros(Scanner scanner, List<Alimento> listaCompras) {
+            System.out.println("Informe a quantidade de outros (em unidades):");
+            int quantidade = Integer.parseInt(scanner.nextLine());
+            if (quantidade <= 0) {
+                throw new UnsupportedOperationException("Não é possível inserir número negativo ou zero.");
+            }
+
+            System.out.println("Informe o nome do alimento:");
+            String nome = scanner.nextLine();
+            if (nome.isEmpty()) {
+                throw new UnsupportedOperationException("Não é permitido inserir nome vazio.");
+            }
+
+            listaCompras.add(new Alimento(nome, quantidade, "OUTROS"));
+        }
+
+        private static int contarTipoAlimento(List<Alimento> listaCompras, String tipo) {
+            int contador = 0;
+            for (Alimento alimento : listaCompras) {
+                if (alimento.getTipo().equals(tipo)) {
+                    contador++;
+                }
+            }
+            return contador;
+        }
+
+
+EXERCICIO2
+
+package Exercicio2;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Scanner;
+
+public class ConversorDeMoeda {
+
+        // Constantes com as cotações das moedas
+        public static final BigDecimal COTACAO_DOLAR_AMERICANO = new BigDecimal("5.25");
+        public static final BigDecimal COTACAO_DOLAR_CANADENSE = new BigDecimal("4.15");
+        public static final BigDecimal COTACAO_EURO = new BigDecimal("6.15");
+        public static final BigDecimal COTACAO_LIBRA_ESTERLINA = new BigDecimal("7.50");
+
+        // Enumeração com os tipos de moeda suportados
+        public enum TipoDeMoeda {
+            DOLAR_AMERICANO,
+            DOLAR_CANADENSE,
+            EURO,
+            LIBRA_ESTERLINA
+        }
+
+        // Método principal que executa o programa
+        public static void main(String[] args) {
+            // Criar um objeto Scanner para ler a entrada do usuário
+            Scanner scanner = new Scanner(System.in);
+
+            // Apresentar uma mensagem de boas vindas ao usuário
+            System.out.println("Boas vindas ao conversor de moedas");
+
+            // Criar uma variável booleana para controlar o loop do programa
+            boolean continuar = true;
+
+            // Enquanto o usuário quiser continuar, repetir o seguinte:
+            while (continuar) {
+                // Perguntar qual a moeda que o usuário quer converter
+                System.out.println("Qual a moeda que você quer converter?");
+                System.out.println("As opções são: ");
+                System.out.println("1 - Dólar americano");
+                System.out.println("2 - Dólar canadense");
+                System.out.println("3 - Euro");
+                System.out.println("4 - Libra Esterlina");
+
+                // Ler a opção escolhida pelo usuário como um inteiro
+                int opcao = scanner.nextInt();
+
+                // Criar uma variável para armazenar o tipo de moeda escolhido
+                TipoDeMoeda tipoDeMoeda;
+
+                // Usar um switch para atribuir o tipo de moeda de acordo com a opção
+                switch (opcao) {
+                    case 1:
+                        tipoDeMoeda = TipoDeMoeda.DOLAR_AMERICANO;
+                        break;
+                    case 2:
+                        tipoDeMoeda = TipoDeMoeda.DOLAR_CANADENSE;
+                        break;
+                    case 3:
+                        tipoDeMoeda = TipoDeMoeda.EURO;
+                        break;
+                    case 4:
+                        tipoDeMoeda = TipoDeMoeda.LIBRA_ESTERLINA;
+                        break;
+                    default:
+                        // Caso a opção seja inválida, lançar uma exceção do tipo IllegalArgumentException
+                        throw new IllegalArgumentException("Tipo de moeda inválido");
+                }
+
+                // Informar ao usuário que o programa só sabe converter dinheiro para Real (R$)
+                System.out.println("O programa só sabe converter dinheiro para Real (R$)");
+
+                // Perguntar ao usuário o valor a ser convertido no formato BigDecimal
+                System.out.println("Qual o valor a ser convertido?");
+
+                // Criar uma variável para armazenar o valor a ser convertido
+                BigDecimal valor;
+
+                // Usar um try-catch para tratar possíveis exceções na leitura do valor
+                try {
+                    // Ler o valor como uma string e criar um objeto BigDecimal a partir dela
+                    valor = new BigDecimal(scanner.next());
+
+                    // Verificar se o valor é maior que zero
+                    if (valor.compareTo(BigDecimal.ZERO) > 0) {
+                        // Se sim, prosseguir com a conversão
+
+                        // Criar uma variável para armazenar a cotação da moeda escolhida
+                        BigDecimal cotacao;
+
+                        // Usar um switch para atribuir a cotação de acordo com o tipo de moeda
+                        switch (tipoDeMoeda) {
+                            case DOLAR_AMERICANO:
+                                cotacao = COTACAO_DOLAR_AMERICANO;
+                                break;
+                            case DOLAR_CANADENSE:
+                                cotacao = COTACAO_DOLAR_CANADENSE;
+                                break;
+                            case EURO:
+                                cotacao = COTACAO_EURO;
+                                break;
+                            case LIBRA_ESTERLINA:
+                                cotacao = COTACAO_LIBRA_ESTERLINA;
+                                break;
+                            default:
+                                // Esse caso não deveria ocorrer, mas por segurança lançamos uma exceção
+                                throw new IllegalStateException("Tipo de moeda desconhecido");
+                        }
+
+                        // Criar uma variável para armazenar o valor convertido em reais
+                        BigDecimal valorConvertido = valor.multiply(cotacao);
+
+                        // Obter a data atual do sistema
+                        LocalDate dataAtual = LocalDate.now();
+
+                        // Mostrar ao usuário o resultado da conversão com uma mensagem formatada
+                        System.out.printf("A %s na cotação de hoje %s está em %.2f, o valor que pediu para converter de %.2f em reais é R$%.2f%n",
+                                tipoDeMoeda.name(), dataAtual, cotacao, valor, valorConvertido);
+
+                    } else {
+                        // Se não, mostrar uma mensagem de erro e pedir para tentar novamente
+                        System.out.println("Valor inválido, por favor, tente novamente");
+                    }
+                } catch (NumberFormatException e) {
+                    // Caso ocorra uma exceção na leitura do valor, mostrar uma mensagem de erro e pedir para tentar novamente
+                    System.out.println("Para moeda, o valor monetário deve ser um número decimal");
+                }
+
+                // Perguntar ao usuário se ele deseja fazer outra conversão
+                System.out.println("Você deseja fazer outra conversão?");
+                System.out.println("Digite S para sim ou N para não");
+
+                // Ler a resposta do usuário como uma string e converter para maiúscula
+                String resposta = scanner.next().toUpperCase();
+
+                // Verificar se a resposta é igual a "N"
+                if (resposta.equals("N")) {
+                    // Se sim, mudar o valor da variável continuar para false e encerrar o loop
+                    continuar = false;
+                }
+            }
+
+            // Fechar o objeto Scanner
+            scanner.close();
+        }
+    }
+
+
+ 
